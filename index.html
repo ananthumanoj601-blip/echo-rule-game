@@ -306,6 +306,8 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
 .app{z-index:1}
 @media(max-width:600px){.world-backdrop{width:auto;min-width:100%;left:50%;transform:translateX(-50%);opacity:.62}}
 @media(prefers-reduced-motion:reduce){.world-backdrop{scroll-behavior:auto}}
+@media(min-width:761px){#game.screen.active{min-height:calc(100vh - 20px);display:grid;align-items:center}}
+@media(max-width:520px){
   .game-status{margin:10px 0 12px;padding:9px}
   .game-status .top{flex-direction:row;align-items:center;gap:6px}
   .game-status .title-wrap{min-width:0}
