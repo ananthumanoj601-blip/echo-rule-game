@@ -222,12 +222,18 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
 .lobby-brand .brain-visual:before{inset:7px 12px}
 .lobby-brand .brain-grid{grid-template-columns:repeat(7,10px);gap:4px}
 .lobby-brand .brain-cell{width:10px;height:10px;border-radius:3px}
-.lobby-actions{position:relative;z-index:1;display:flex;justify-content:center;gap:10px;margin:3px auto 21px}
+.lobby-actions{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:3px auto 21px}
 .lobby-actions .btn{margin:0}
 .lobby-actions #playBtn{width:min(440px,72%);min-height:92px;border:3px solid #ffdc4f;border-radius:27px;background:linear-gradient(180deg,#fff448 0%,#ffc00c 51%,#ff9900 100%);box-shadow:inset 0 4px rgba(255,255,255,.67),inset 0 -6px rgba(198,82,0,.38),0 7px 0 #7f350b,0 12px 27px rgba(255,153,0,.35);color:#351a35;font-size:clamp(27px,4vw,48px);font-weight:1000;letter-spacing:2px;text-shadow:0 2px rgba(255,255,255,.35)}
 .lobby-actions #playBtn:hover{filter:brightness(1.08);transform:translateY(-3px);box-shadow:inset 0 4px rgba(255,255,255,.7),inset 0 -6px rgba(198,82,0,.35),0 9px 0 #7f350b,0 16px 34px rgba(255,177,0,.47)}
 .lobby-actions #continueBtn{align-self:center;min-height:48px;padding:0 17px;border-radius:14px}
-.mode-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:1100px;margin:0 auto}
+.mode-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,165px),1fr));gap:12px;max-width:1100px;margin:0 auto}
+.game-status{position:relative;z-index:1;max-width:1100px;margin:10px auto 14px;padding:12px;border:1px solid rgba(137,160,255,.2);border-radius:16px;background:rgba(9,15,34,.76)}
+.game-status .top{align-items:center}
+.game-status .progress{margin:8px 0 10px}
+.game-status .stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:0}
+.game-timer{display:flex;align-items:center;justify-content:space-between;gap:10px;width:max-content;min-width:120px;margin:0 auto 8px;padding:6px 12px;border:1px solid rgba(137,160,255,.2);border-radius:999px;background:rgba(12,21,43,.82)}
+.game-timer b{font-size:16px;font-variant-numeric:tabular-nums}
 .mode-card{--mode-color:#ffd123;--mode-glow:rgba(255,194,20,.32);display:flex;min-width:0;min-height:208px;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px;padding:16px 10px 12px;border:2px solid var(--mode-color);border-radius:25px;background:radial-gradient(ellipse at 50% 34%,var(--mode-glow),transparent 58%),linear-gradient(160deg,rgba(8,23,60,.98),rgba(6,12,36,.98));color:#f7f8ff;cursor:pointer;font:inherit;text-align:center;box-shadow:inset 0 0 23px var(--mode-glow),0 0 13px var(--mode-glow),0 7px 18px rgba(0,0,0,.27);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
 .mode-card:hover{transform:translateY(-5px) scale(1.015);filter:brightness(1.14);box-shadow:inset 0 0 28px var(--mode-glow),0 0 25px var(--mode-glow),0 12px 22px rgba(0,0,0,.32)}
 .mode-card:focus-visible{outline:3px solid #fff;outline-offset:4px}
@@ -279,8 +285,9 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
   .lobby-brand{margin-top:17px}.lobby-brand .logo{font-size:clamp(47px,13vw,76px);letter-spacing:-3px}
   .lobby-brand .subtitle{font-size:10px;letter-spacing:.55px}
   .lobby-brand .brain-visual{height:70px;margin-bottom:2px}
-  .lobby-actions{margin-bottom:15px}.lobby-actions #playBtn{min-height:66px;width:min(360px,72%);border-radius:20px;font-size:30px}
-  .lobby-actions #continueBtn{padding:0 10px;font-size:11px}
+  .lobby-actions{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px;margin-bottom:15px}
+  .lobby-actions #playBtn{width:100%;min-height:66px;margin:0;border-radius:20px;font-size:clamp(22px,7vw,30px)}
+  .lobby-actions #continueBtn{width:100%;min-height:44px;margin:0;padding:0 6px;font-size:clamp(9px,2.7vw,11px)}
   .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .mode-card{min-height:154px;border-radius:19px;padding:9px 7px}
   .mode-card.more{grid-column:span 2;min-height:68px;flex-direction:row;justify-content:center}
@@ -299,6 +306,30 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
 .app{z-index:1}
 @media(max-width:600px){.world-backdrop{width:auto;min-width:100%;left:50%;transform:translateX(-50%);opacity:.62}}
 @media(prefers-reduced-motion:reduce){.world-backdrop{scroll-behavior:auto}}
+  .game-status{margin:10px 0 12px;padding:9px}
+  .game-status .top{flex-direction:row;align-items:center;gap:6px}
+  .game-status .title-wrap{min-width:0}
+  .game-status .title-wrap h2{font-size:18px;line-height:1.1}
+  .game-status #subtitle2{font-size:10px}
+  .game-status .top>div:last-child{display:flex;justify-content:flex-end;gap:4px;flex-wrap:wrap}
+  .game-status .badge{margin:0;padding:6px 7px;font-size:10px}
+  .game-status .progress{margin:8px 0}
+  .game-status .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+  .game-status .stat{padding:5px 2px;border-radius:9px}
+  .game-status .stat .small{font-size:9px}
+  .game-status .stat b{font-size:14px;margin-top:1px}
+  #game .instructions{min-height:0;font-size:13px}
+  #game .instructions p{margin:3px 0;line-height:1.3}
+  #game .grid{gap:5px;margin:10px auto 8px}
+  #game .cell{width:clamp(38px,14vw,58px);height:clamp(38px,14vw,58px)}
+}
+@media(max-width:520px){
+  #game .card{padding-bottom:140px;backdrop-filter:none}
+  #game .game-timer{margin-bottom:6px}
+  .controls{position:fixed;z-index:20;right:0;bottom:0;left:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));border-top:1px solid rgba(137,160,255,.22);background:rgba(7,12,28,.96);backdrop-filter:blur(12px);box-shadow:0 -8px 24px rgba(0,0,0,.32)}
+  .controls .btn{width:100%;min-width:0;min-height:44px;margin:0;padding:8px 3px;font-size:clamp(9px,2.8vw,12px)}
+  .controls #submitBtn{grid-column:1/-1;min-height:46px;margin:0}
+}
 
 </style>
 </head>
@@ -338,6 +369,19 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
    <button class="btn" id="playBtn">▶ &nbsp; PLAY</button>
    <button class="btn secondary" id="continueBtn">CONTINUE</button>
   </div>
+  <div class="game-status">
+   <div class="top">
+    <div class="title-wrap"><h2>ECHO RULE</h2><div id="subtitle2" class="muted"></div></div>
+    <div><span class="badge" id="levelBadge">LEVEL 1</span><span class="badge" id="diffBadge">EASY</span></div>
+   </div>
+   <div class="progress"><div id="progressBar"></div></div>
+   <div class="stats">
+    <div class="stat"><span class="small muted">Attempts</span><b id="attempts">0</b></div>
+    <div class="stat"><span class="small muted">Hints</span><b id="hints">0</b></div>
+    <div class="stat"><span class="small muted">Best</span><b id="bestTime">—</b></div>
+    <div class="stat"><span class="small muted">Stars</span><b id="stars">—</b></div>
+   </div>
+  </div>
   <div class="mode-grid">
    <button class="mode-card daily" id="dailyBtn"><span class="mode-icon" aria-hidden="true">▦</span><strong>DAILY MEMORY</strong><span>Complete a new puzzle every day.</span><em>★ DAILY CHALLENGE</em></button>
    <button class="mode-card endless" id="endlessBtn"><span class="mode-icon" aria-hidden="true">∞</span><strong>ENDLESS</strong><span>How far can your memory go?</span><em>♛ KEEP CLIMBING</em></button>
@@ -363,18 +407,7 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
 
 <section id="game" class="screen">
  <div class="card">
-  <div class="top">
-   <div class="title-wrap"><h2>ECHO RULE</h2><div id="subtitle2" class="muted"></div></div>
-   <div><span class="badge" id="levelBadge">LEVEL 1</span><span class="badge" id="diffBadge">EASY</span></div>
-  </div>
-  <div class="progress"><div id="progressBar"></div></div>
-  <div class="stats">
-   <div class="stat"><span class="small muted">Attempts</span><b id="attempts">0</b></div>
-   <div class="stat"><span class="small muted">Hints</span><b id="hints">0</b></div>
-   <div class="stat"><span class="small muted">Time</span><b id="timer">0.0</b></div>
-   <div class="stat"><span class="small muted">Best</span><b id="bestTime">—</b></div>
-   <div class="stat"><span class="small muted">Stars</span><b id="stars">—</b></div>
-  </div>
+  <div class="game-timer"><span class="small muted">TIME</span><b id="timer">0.0</b></div>
   <div id="instructions" class="instructions"></div>
   <div id="clues" class="clues"></div>
   <div id="grid" class="grid"></div>
