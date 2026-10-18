@@ -37,7 +37,7 @@ button:focus-visible{outline:3px solid var(--accent2);outline-offset:3px}
 .progress{height:9px;background:#18233a;border-radius:20px;overflow:hidden;margin:14px 0 20px}.progress>div{height:100%;background:linear-gradient(90deg,#657aff,#9aa8ff);width:0;transition:width .25s ease}
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}.stat{background:#0c1526;border:1px solid #1e2a42;border-radius:12px;padding:9px;text-align:center}.stat b{display:block;font-size:17px;margin-top:2px}.small{font-size:12px}.muted{color:var(--muted)}
 .instructions{text-align:center;min-height:60px}.instructions p{margin:6px 0;line-height:1.45}.message{text-align:center;min-height:31px;font-weight:850;margin-top:7px}.message.count{color:var(--muted);font-weight:750;font-size:13px}.good{color:var(--good)}.bad{color:var(--bad)}.gold{color:var(--gold)}
-.grid{display:grid;gap:7px;justify-content:center;margin:20px auto 14px;user-select:none}.cell{width:clamp(48px,9vw,78px);height:clamp(48px,9vw,78px);border:1px solid #364562;background:#1b2740;border-radius:12px;color:white;display:flex;align-items:center;justify-content:center;font-size:clamp(18px,3.5vw,29px);font-weight:900;cursor:pointer;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:transform .12s ease,background .15s ease,border-color .15s ease}
+.grid{display:grid;grid-template-columns:repeat(var(--grid-columns),auto);gap:7px;justify-content:center;margin:20px auto 14px;user-select:none}.cell{width:clamp(48px,9vw,78px);height:clamp(48px,9vw,78px);border:1px solid #364562;background:#1b2740;border-radius:12px;color:white;display:flex;align-items:center;justify-content:center;font-size:clamp(18px,3.5vw,29px);font-weight:900;cursor:pointer;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);transition:transform .12s ease,background .15s ease,border-color .15s ease}
 .cell:hover{transform:translateY(-2px)}
 .cell.memory{background:linear-gradient(180deg,#7890ff,#596ff3);border-color:#9eadff;box-shadow:0 0 22px rgba(111,134,255,.24)}
 .cell.locked{opacity:.5;cursor:not-allowed}.cell.selected{background:linear-gradient(180deg,#6076c9,#4b5ea4);border-color:#93a7ff;box-shadow:0 0 0 2px rgba(146,165,255,.11)}
@@ -290,12 +290,12 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
   .lobby-actions #continueBtn{width:100%;min-height:44px;margin:0;padding:0 6px;font-size:clamp(9px,2.7vw,11px)}
   .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .mode-card{min-height:154px;border-radius:19px;padding:9px 7px}
-  .mode-card.endless{grid-column:1/-1;min-height:108px;display:grid;grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto auto;align-content:center;justify-items:start;column-gap:10px;row-gap:3px;padding:10px 13px;text-align:left}
+  .mode-card.endless{order:-1;grid-column:1/-1;min-height:108px;display:grid;grid-template-columns:42px minmax(0,1fr);grid-template-rows:auto auto auto;align-content:center;justify-items:start;column-gap:10px;row-gap:3px;padding:10px 13px;text-align:left}
   .mode-card.endless .mode-icon{grid-column:1;grid-row:1/4;width:42px;height:auto;font-size:38px}
   .mode-card.endless strong{grid-column:2;grid-row:1}
   .mode-card.endless>span:not(.mode-icon){grid-column:2;grid-row:2;max-width:none;min-height:0}
   .mode-card.endless em{grid-column:2;grid-row:3;margin-top:2px}
-  .mode-card.more{grid-column:span 2;min-height:68px;flex-direction:row;justify-content:center}
+  .mode-card.more{grid-column:auto;min-height:80px;flex-direction:row;justify-content:center}
   .mode-card.more .mode-icon{height:auto;font-size:34px}
   .mode-icon{height:56px;font-size:46px}.mode-card strong{font-size:12px}
   .mode-card>span:not(.mode-icon){min-height:28px;font-size:10px}
@@ -312,6 +312,10 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
 @media(max-width:600px){.world-backdrop{width:auto;min-width:100%;left:50%;transform:translateX(-50%);opacity:.62}}
 @media(prefers-reduced-motion:reduce){.world-backdrop{scroll-behavior:auto}}
 @media(min-width:761px){#game.screen.active{min-height:calc(100vh - 20px);display:grid;align-items:center}}
+@media(max-width:760px){
+  #game .grid{width:100%;grid-template-columns:repeat(var(--grid-columns),minmax(0,1fr))}
+  #game .cell{width:100%;height:auto;min-width:0;aspect-ratio:1;font-size:clamp(12px,2.4vw,20px)}
+}
 @media(max-width:520px){
   .game-status{margin:10px 0 12px;padding:9px}
   .game-status .top{flex-direction:row;align-items:center;gap:6px}
@@ -328,7 +332,6 @@ body.high-contrast .menu-item,body.high-contrast .stat,body.high-contrast .conti
   #game .instructions{min-height:0;font-size:13px}
   #game .instructions p{margin:3px 0;line-height:1.3}
   #game .grid{gap:5px;margin:10px auto 8px}
-  #game .cell{width:clamp(38px,14vw,58px);height:clamp(38px,14vw,58px)}
 }
 @media(max-width:520px){
   #game .card{padding-bottom:140px;backdrop-filter:none}
@@ -763,7 +766,7 @@ async function nextLevel(){ $('modal').classList.remove('show');const go=()=>{if
 function pauseGame(){if(completed||!state||state.phase!=='answer')return;if(paused){resumeGame();return}paused=true;elapsedBeforePause=currentElapsed();endGameplay();$('pauseModal').classList.add('show')}
 function resumeGame(){if(adBusy)return;$('pauseModal').classList.remove('show');$('adOfferModal').classList.remove('show');paused=true;const resume=()=>{paused=false;startClock();sdkCall('gameplayStart')};requestAd('midgame',resume,resume)}
 function goMenu(){endGameplay();if(previewTimer){clearInterval(previewTimer);previewTimer=null}$('modal').classList.remove('show');$('pauseModal').classList.remove('show');$('modesModal').classList.remove('show');$('adOfferModal').classList.remove('show');setScreen('menu');updateMenu()}
-function render(){const s=state;$('grid').innerHTML='';$('clues').innerHTML='';$('message').textContent='';$('subtitle2').textContent=s.phase==='preview'?'MEMORIZE':s.phase==='answer'?'YOUR TURN':'LOCKED';$('instructions').innerHTML=s.phase==='preview'?`<p>${s.text}</p><p class="small muted">Watch carefully. The grid will disappear.</p>`:`<p>${s.text}</p>`;$('grid').style.gridTemplateColumns=`repeat(${s.n},auto)`;for(let r=0;r<s.n;r++)for(let c=0;c<s.n;c++){const e=document.createElement('button');e.type='button';e.className='cell';e.dataset.r=r;e.dataset.c=c;e.setAttribute('aria-label',`Row ${r+1}, Column ${c+1}`);const k=pos(r,c);if(s.phase==='preview'&&!s.order&&s.cells.some(p=>p[0]===r&&p[1]===c))e.classList.add('memory');if(s.phase==='answer'&&s.selected.has(k))e.classList.add('selected');if(s.phase==='locked'){e.classList.add('locked');e.disabled=true} if(s.phase==='preview')e.disabled=true; e.onclick=()=>clickCell(r,c);$('grid').appendChild(e)}if(s.phase==='preview')memoryPreview();if(s.phase==='answer')$('instructions').innerHTML=`<p>${s.text}</p><p class="small muted">${s.reverseAnswer?'Enter the sequence in reverse order. ':''}${s.pattern==='rotate'?'The pattern is now rotated clockwise. ':s.pattern==='mirror'?'The pattern is now mirrored horizontally. ':s.pattern==='shiftRight'?'The pattern is now shifted right by one cell. ':s.pattern==='shiftDown'?'The pattern is now shifted down by one cell. ':''}Select the correct blocks, then press <b>SUBMIT</b>. Selected blocks can be clicked again to remove them.</p>`}
+function render(){const s=state;$('grid').innerHTML='';$('clues').innerHTML='';$('message').textContent='';$('subtitle2').textContent=s.phase==='preview'?'MEMORIZE':s.phase==='answer'?'YOUR TURN':'LOCKED';$('instructions').innerHTML=s.phase==='preview'?`<p>${s.text}</p><p class="small muted">Watch carefully. The grid will disappear.</p>`:`<p>${s.text}</p>`;$('grid').style.setProperty('--grid-columns',s.n);for(let r=0;r<s.n;r++)for(let c=0;c<s.n;c++){const e=document.createElement('button');e.type='button';e.className='cell';e.dataset.r=r;e.dataset.c=c;e.setAttribute('aria-label',`Row ${r+1}, Column ${c+1}`);const k=pos(r,c);if(s.phase==='preview'&&!s.order&&s.cells.some(p=>p[0]===r&&p[1]===c))e.classList.add('memory');if(s.phase==='answer'&&s.selected.has(k))e.classList.add('selected');if(s.phase==='locked'){e.classList.add('locked');e.disabled=true} if(s.phase==='preview')e.disabled=true; e.onclick=()=>clickCell(r,c);$('grid').appendChild(e)}if(s.phase==='preview')memoryPreview();if(s.phase==='answer')$('instructions').innerHTML=`<p>${s.text}</p><p class="small muted">${s.reverseAnswer?'Enter the sequence in reverse order. ':''}${s.pattern==='rotate'?'The pattern is now rotated clockwise. ':s.pattern==='mirror'?'The pattern is now mirrored horizontally. ':s.pattern==='shiftRight'?'The pattern is now shifted right by one cell. ':s.pattern==='shiftDown'?'The pattern is now shifted down by one cell. ':''}Select the correct blocks, then press <b>SUBMIT</b>. Selected blocks can be clicked again to remove them.</p>`}
 const ACHIEVEMENTS=[
 {id:'first',icon:'🌱',title:'First Recall',desc:'Complete Level 1.'},
 {id:'five',icon:'🧠',title:'Building Memory',desc:'Complete Level 5.'},
